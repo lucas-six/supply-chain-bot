@@ -1,7 +1,7 @@
 services:
 
   api:
-    image: fastapi-template:0.0.3
+    image: supply-chain-bot:latest
     depends_on:
       - worker
 
