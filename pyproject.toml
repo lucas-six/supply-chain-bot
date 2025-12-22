@@ -1,7 +1,7 @@
 [project]
-name = "fastapi-template"
+name = "supply-chain-bot"
 version = "0.1.0"
-description = "FastAPI template. Using FastAPI, SQLModel, PostgreSQL, Redis, Celery, RabbitMQ, Docker, GitHub Actions, automatic HTTPS and more."
+description = "Supply chain bot."
 authors = [{ name = "Lucas", email = "lucassix.lee@gmail.com" }]
 readme = "README.md"
 requires-python = ">=3.13"
@@ -20,20 +20,7 @@ dependencies = [
 ]
 license-files = ["LICEN[CS]E*", "vendored/licenses/*.txt", "AUTHORS.md"]
 maintainers = [{ name = "Lucas", email = "lucassix.lee@gmail.com" }]
-keywords = [
-    "fastapi",
-    "fastapi-template",
-    "sqlalchemy",
-    "sqlmodel",
-    "postgresql",
-    "redis",
-    "celery",
-    "rabbitmq",
-    "S3",
-    "docker",
-    "github actions",
-    "automatic https",
-]
+keywords = ["fastapi", "supply-chain", "bot", "S3", "docker", "github actions"]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
 
@@ -48,7 +35,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "Typing :: Typed",
 ]
-urls = { Repository = "https://github.com/lucas-six/fastapi-template/" }
+urls = { Repository = "https://github.com/lucas-six/supply-chain-bot/" }
 
 [dependency-groups]
 dev = ["mypy>=1.18.2", "ruff>=0.14.6"]

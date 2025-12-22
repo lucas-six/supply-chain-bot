@@ -1,20 +1,6 @@
-# fastapi-template
+# supply-chain-bot
 
-FastAPI template.
-Using FastAPI, SQLModel, PostgreSQL, Redis, Celery, RabbitMQ, Docker,
-GitHub Actions, automatic HTTPS and more.
-
-## Features
-
-- Virtual Environment support: `uv`
-- SQL Database support: `PostgreSQL`
-- Caching support: `Redis`
-- Task Queue support: `Celery`
-- Message Queue support: `RabbitMQ`
-- Containerization support: `Docker`
-- Workflow support: `GitHub Actions`
-- Automatic HTTPS support: `Automatic HTTPS`
-- Webhook integration: `Resend`
+Supply chain bot.
 
 ## System Requirements
 
@@ -24,7 +10,6 @@ GitHub Actions, automatic HTTPS and more.
 - RabbitMQ 4.2+ (Optional)
 - S3 compatible storage (Optional)
 - Docker Engine 29.1+
-- Automatic HTTPS
 
 ## Usage
 
@@ -33,10 +18,10 @@ GitHub Actions, automatic HTTPS and more.
 ```ini
 # .env
 
-APP_NAME="FastAPI App"
+APP_NAME="Supply Chain Bot"
 APP_VERSION=v1
 APP_ROOT_URL=/api
-APP_DESCRIPTION="FastAPI App description."
+APP_DESCRIPTION="Supply Chain Bot."
 DEBUG=true
 
 # SQL Database (PostgreSQL)
@@ -51,7 +36,7 @@ REDIS_URL=redis://:foobared@localhost:6379/0
 CACHE_MAX_CONNS=4096
 CACHE_CONN_TIMEOUT=3.0
 CACHE_TIMEOUT=3.5
-CACHE_PREFIX=fastapi-template
+CACHE_PREFIX=supply-chain-bot
 
 # Task (Celery with RabbitMQ/Redis)
 TASK_QUEUE_BROKER=amqp://guest:guest@localhost:5672
@@ -101,7 +86,7 @@ uv run --env-file .env celery -A task.celery_worker worker --loglevel=debug --co
 ```
 
 ```bash
-docker build -t fastapi-template:<tag> .  # <tag> is the tag of the image
+docker build -t supply-chain-bot:<tag> .  # <tag> is the tag of the image
 ```
 
 #### Production
@@ -126,7 +111,7 @@ uv run --env-file .env celery -A task.celery_worker beat --loglevel=info
 ```
 
 ```bash
-docker run -d --network=host --env-file .env fastapi-template:<tag>
+docker run -d --network=host --env-file .env supply-chain-bot:<tag>
 
 docker logs -f <container_id>
 docker stop <container_id>
@@ -136,16 +121,3 @@ docker ps -a
 # Run App with Celery
 docker compose up -d
 ```
-
-## References
-
-- [**`FastAPI`**](https://fastapi.tiangolo.com/)
-- [*`Pydantic`*: Data Validation and Settings Management (Python Cookbook)](https://lucas-six.github.io/python-cookbook/cookbook/data/pydantic)
-- [**`uvicorn`**: *ASGI* Server (Python Cookbook)](https://lucas-six.github.io/python-cookbook/cookbook/web/uvicorn)
-- [SQL Database (PostgreSQL): `SQLModel` + `Alembic` (Python Cookbook)](https://lucas-six.github.io/python-cookbook/cookbook/system_services/sql_db)
-- [Cache (Redis): **`redis-py`** (Python Cookbook)](https://lucas-six.github.io/python-cookbook/cookbook/system_services/redis)
-- [**`celery`**: Task Queue](https://docs.celeryq.dev/en/stable/)
-- [Message Queue (RabbitMQ): **`pika`**](https://pika.readthedocs.io/en/stable/index.html)
-- [*`Swagger`*: *OpenAPI*](https://swagger.io/)
-- [*`Starlette`*: *ASGI* Web part](https://www.starlette.io/)
-- [Awesome List for FastAPI](https://github.com/mjhea0/awesome-fastapi)
