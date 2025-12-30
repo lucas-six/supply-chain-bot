@@ -24,13 +24,6 @@ class EmailWebhookEventTypeEnum(StrEnum):
     EMAIL_RECEIVED = 'email.received'
 
 
-class S3TypeEnum(StrEnum):
-    """S3 Type Enum."""
-
-    AMAZON_S3 = 'amazon_s3'
-    ALIYUN_OSS = 'aliyun_oss'
-
-
 class BasicModel(SQLModel):
     """Basic Model."""
 
@@ -77,11 +70,11 @@ class EmailAttachment(SQLModel, table=True):
     email_subject: str = Field(max_length=256)
     email_from: EmailStr
     email_to: list[EmailStr] = Field(sa_column=Column(JSON))
-    filename: str = Field(max_length=256)
+    attachment_filename: str = Field(max_length=256, unique=True)
+    file_name: str = Field(max_length=256)
     content_type: str = Field(max_length=256)
     file_size: int = Field(default=0, ge=0)
     created_at: datetime
-    s3_type: S3TypeEnum = S3TypeEnum.AMAZON_S3
     s3_region: str = Field(max_length=64)
     s3_bucket: str = Field(max_length=64)
     s3_key: str = Field(max_length=256)
