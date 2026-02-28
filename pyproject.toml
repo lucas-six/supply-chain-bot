@@ -44,7 +44,7 @@ urls = { Repository = "https://github.com/lucas-six/supply-chain-bot/" }
 dev = ["mypy>=1.18.2", "ruff>=0.14.6"]
 
 [tool.setuptools]
-py-modules = ["app"]
+py-modules = ["app", "task"]
 
 # [[tool.uv.index]]
 # url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
@@ -157,7 +157,7 @@ module = "redis.*"
 ignore_missing_imports = true
 
 [tool.pyright]
-include = ["app/**/*.py"]
+include = ["app/**/*.py", "task/**/*.py"]
 exclude = [
     ".git",
     "**/__pycache__",

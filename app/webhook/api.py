@@ -55,11 +55,22 @@ async def resend_webhook(
     json_data = await request.json()
     event_type = json_data['type']
     task = None
+    ck_prefix = f'{settings.cache_prefix}:webhook:resend'
     match event_type:
         case 'email.received':
             email_id = json_data['data']['email_id']
             email_from = json_data['data']['from']
             logger.info(f'Email received [{email_id}] from {email_from}')
+
+            # Check if the message is being processed
+            message_id = json_data['data']['message_id']
+            message_lock_ck = f'{ck_prefix}:message:{message_id}'
+            if await redis_session.exists(message_lock_ck):
+                logger.debug(f'Email received [{email_id}] from {email_from} is being processed')
+                return JSONResponse({'success': True, 'task_id': ''})
+            await redis_session.set(message_lock_ck, '1', ex=settings.resend_webhook_lock_expire)
+
+            # Process the email
             task = handle_resend_email_received.delay(json_data)
             logger.debug(f'Email received task {task.id} delayed')
         case _:
@@ -68,13 +79,13 @@ async def resend_webhook(
     # Add to Redis Streams for other services to consume
     if settings.resend_webhook_publish_to_redis:
         await redis_session.xadd(
-            f'{settings.cache_prefix}:webhook:resend',
+            f'{ck_prefix}:stream',
             json_data,
             maxlen=settings.resend_webhook_queue_maxlen,
         )
         logger.debug(f'Resend webhook data added to Redis [{await pid_str()}]...')
 
-    rsp = {'success': True}
+    rsp: dict[str, str | bool] = {'success': True, 'task_id': ''}
     if task:
         rsp['task_id'] = task.id
     return JSONResponse(rsp)
