@@ -90,7 +90,12 @@ UVICORN_TIMEOUT_KEEP_ALIVE=5
 #### Development / Testing
 
 ```bash
+# apply all migrations
+uv run alembic check
+uv run alembic upgrade head
+
 uv run -m app.app
+#uv run uvicorn --host 0.0.0.0 --port 8000 app.app:app
 uv run --env-file .env celery -A task.celery_worker worker --loglevel=debug --concurrency=1
 ```
 
