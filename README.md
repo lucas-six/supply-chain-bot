@@ -2,15 +2,23 @@
 
 Supply chain bot.
 
+## Features
+
+- Email Integration: [`Resend`](https://resend.com/)
+- File Storage: S3
+- AI Integration: QWen
+
 ## System Requirements
 
 - Python 3.13+
 - PostgreSQL 16+
-- Redis 8.4+
-- RabbitMQ 4.2+ (Optional)
-- S3 compatible storage (Optional)
+- Redis 8+
+- RabbitMQ 4.2+ (optional)
+- S3 storage: AWS S3, Aliyun OSS (optional)
 - Docker Engine 29.1+
-- OpenAI API Key (Optional)
+- Integration
+  - Email: [`Resend`](https://resend.com/)
+  - AI: `QWen`
 
 ## Usage
 
@@ -68,14 +76,14 @@ TASK_QUEUE_RESULT_EXPIRES=86400
 ##RESEND_ATTACHMENTS_S3_PRESIGNED_EXPIRE=3600
 ##RESEND_ATTACHMENTS_S3_MULTIPART_THRESHOLD=1073741824
 
-# AI (OpenAI)
+# AI API
 #AI_API_KEY=openai_api_key
 #AI_API_BASE_URL=openai_api_base_url
 #AI_API_MODEL=openai_api_model
 #AI_API_MAX_RETRIES=2
 #AI_API_UPLOAD_FILE_TIMEOUT=10.0
 
-# uvicorn
+# uvicorn (for docker)
 UVICORN_PORT=8000
 UVICORN_WORKERS=1
 UVICORN_CONCURRENCY=1024
@@ -90,7 +98,7 @@ UVICORN_TIMEOUT_KEEP_ALIVE=5
 #### Development / Testing
 
 ```bash
-# apply all migrations
+# Run database migrations
 uv run alembic check
 uv run alembic upgrade head
 

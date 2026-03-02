@@ -71,7 +71,7 @@ async def resend_webhook(
             await redis_session.set(message_lock_ck, '1', ex=settings.resend_webhook_lock_expire)
 
             # Process the email
-            task = handle_resend_email_received.delay(json_data)
+            task = handle_resend_email_received.delay(json_data, message_lock_ck)
             logger.debug(f'Email received task {task.id} delayed')
         case _:
             pass
